@@ -38,14 +38,8 @@ triplet_net = TripletNet(embedding_net)
 if cuda:
     triplet_net = triplet_net.cuda()
 
-# Triplet loss 1
 margin = 1.0
 loss_fn = TripletLoss(margin)
-
-# Triplet loss 2
-# def l_infinity(x1, x2):
-#     return torch.max(torch.abs(x1 - x2), dim=1).values
-# loss_fn = nn.TripletMarginWithDistanceLoss(distance_function=l_infinity, margin=1.5)
 
 lr = 1e-3
 optimizer = optim.Adam(triplet_net.parameters(), lr=lr)
@@ -54,3 +48,4 @@ n_epochs = 20
 log_interval = 100
 
 fit(triplet_train_loader, triplet_test_loader, triplet_net, loss_fn, optimizer, scheduler, n_epochs, cuda, log_interval)
+torch.save(triplet_net.state_dict(), 'checkpoint.ckp')
