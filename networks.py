@@ -5,7 +5,7 @@ from resnet import ResNetEncoder, ResNetBasicBlock
 
 class ResNetEmbedding(nn.Module):
     def __init__(self):
-        super(EmbeddingNet, self).__init__()
+        super(ResNetEmbedding, self).__init__()
         self.convnet = ResNetEncoder(3, block=ResNetBasicBlock, deepths=[2, 2, 2, 2])
 
         self.fc = nn.Sequential(nn.Linear(512, 256),
