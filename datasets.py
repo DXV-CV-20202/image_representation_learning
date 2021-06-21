@@ -46,6 +46,7 @@ class IRDataset(Dataset):
             positive_idx = np.random.choice(self.index[self.descriptor[idx]['class_name']])
         negative_label = np.random.choice(list(self.labels - {self.descriptor[idx]['class_name']}))
         negative_idx = np.random.choice(self.index[negative_label])
+        # print(idx, positive_idx, negative_idx, (idx // 5000) == (positive_idx // 5000), (idx // 5000) != (negative_idx // 5000))
         
         anchor_image = io.imread(self.descriptor[idx]['image_path'])
         positive_image = io.imread(self.descriptor[positive_idx]['image_path'])

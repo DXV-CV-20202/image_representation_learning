@@ -1,6 +1,27 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
+from resnet import ResNetEncoder, ResNetBasicBlock
+
+class ResNetEmbedding(nn.Module):
+    def __init__(self):
+        super(EmbeddingNet, self).__init__()
+        self.convnet = ResNetEncoder(3, block=ResNetBasicBlock, deepths=[2, 2, 2, 2])
+
+        self.fc = nn.Sequential(nn.Linear(512, 256),
+                                nn.LeakyReLU(inplace=False),
+                                nn.Linear(256, 128)
+                                )
+
+    def forward(self, x):
+        output = self.convnet(x)
+        output = output.view(output.size()[0], -1)
+        output = self.fc(output)
+        return output
+
+    def get_embedding(self, x):
+        return self.forward(x)
+
 
 class EmbeddingNet(nn.Module):
     def __init__(self):
