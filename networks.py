@@ -1,7 +1,9 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
-from resnet import ResNetEncoder, ResNetBasicBlock
+import sys
+sys.path.append("..")
+from image_representation_learning.resnet import ResNetEncoder, ResNetBasicBlock
 
 class ResNetEmbedding(nn.Module):
     def __init__(self):
